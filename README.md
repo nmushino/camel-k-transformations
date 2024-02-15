@@ -13,3 +13,7 @@ Camelを使って固定長ファイルからJson形式に変更するデモ。
 下記を実行する
 - .provision.sh
 - .provision-camel.sh
+
+# オプション
+cd ./openshift/kafka-ui
+helm install kafka-ui charts/kafka-ui -f ./charts/kafka-ui/values.yaml
