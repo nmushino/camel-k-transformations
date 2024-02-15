@@ -1,0 +1,45 @@
+- route:
+    id: route-7530
+    from:
+      id: from-2166
+      uri: aws2-s3
+      parameters:
+        accessKey: <<アクセスキー>>
+        bucketNameOrArn: <<バケット名>>
+        region: ap-northeast-1
+        secretKey: <<シークレットキー>>
+      steps:
+        - to:
+            uri: file:input
+        - to:
+            id: to-1550
+            uri: flatpack:fixed:parser.pzmap.xml
+- route:
+    id: route-1165
+    from:
+      id: from-1482
+      uri: flatpack:fixed:parser.pzmap.xml
+      steps:
+        - convertBodyTo:
+            type: java.util.Map
+        - log:
+            id: log-4763
+            loggingLevel: INFO
+            message: "The file content: ${body}"
+        - marshal:
+            json: {}
+        - log:
+            id: log-4788
+            loggingLevel: INFO
+            message: "The file content: ${body}"
+        - convertBodyTo:
+            type: java.lang.String
+        - to:
+            id: to-3484
+            uri: kafka:incoming-topic?brokers=s3-cluster-kafka-bootstrap.integration-demo.svc:9092
+        - to:
+            uri: file:output
+            parameters:
+              doneFileName: done.json
+              fileExist: Append
+              fileName: data-${date:now:yyyyMMddHHmmss}.json

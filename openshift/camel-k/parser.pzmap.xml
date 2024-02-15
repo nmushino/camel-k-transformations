@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<!DOCTYPE PZMAP SYSTEM "flatpack.dtd" >
+<PZMAP>
+    <COLUMN name="KCODE" length="7" />
+    <COLUMN name="KFLG" length="2" />
+    <COLUMN name="FID" length="4" />
+</PZMAP>
